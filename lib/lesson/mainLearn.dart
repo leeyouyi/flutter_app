@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'page/detailScreen.dart';
-import 'page/homeScreen.dart';
+import '../page/detailScreen.dart';
+import '../page/homeScreen.dart';
 // import 'widget/textSection.dart';
 // import 'widget/titleSection.dart';
 
