@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-// import 'package:provider/provider.dart';
+
+import 'page/detailScreen.dart';
+import 'page/homeScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,70 +19,48 @@ class MyApp extends StatelessWidget {
             seedColor: const Color.fromARGB(255, 23, 11, 5)),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'home page'),
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({
+    super.key,
+  });
 
-  final String title;
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  var list = [];
+  int _index = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  void _getApi() async {
-    String url = "https://jsonplaceholder.typicode.com/posts";
-    final response = await http.get(Uri.parse(url));
-    var responseData = json.decode(response.body);
-    // print(responseData);
-    setState(() {
-      list = responseData;
-    });
-    print(list);
-    print('list');
-  }
+  final pages = [HomeScreen(), DetailScreen()];
 
   @override
   Widget build(BuildContext context) {
-    //  var appState = context.watch<MyHomePageState>();
-
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-          child: ListView(
-        children: [
-          // Text(
-          //   '$_counter',
-          //   style: Theme.of(context).textTheme.headlineMedium,
-          // ),
-          // ignore: unused_local_variable
-          for (var li in list)
-            ListTile(
-              // leading: Icon(Icons.favorite),
-              title: Text(li.toString()),
-            ),
+      // appBar: AppBar(title: Text('xxxx')),
+      body: pages[_index],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _index,
+        onTap: (newIndex) {
+          setState(() {
+            _index = newIndex;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.details),
+            label: 'details',
+          ),
         ],
-      )),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _getApi,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-form
+      ),
     );
   }
 }
