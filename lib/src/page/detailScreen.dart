@@ -7,6 +7,7 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Detail'),
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         ),
         body: Center(
           child: ElevatedButton(
