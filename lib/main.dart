@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             // ignore: unused_local_variable
             Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(10.0),
                 child: TextItem(data: result)),
             // for (var i in list)
             //   Padding(
@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 const textStyle = TextStyle(
   color: Colors.cyan,
-  fontSize: 22.0,
+  fontSize: 18.0,
   fontWeight: FontWeight.w600,
 );
 
@@ -95,18 +95,37 @@ class TextItem extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Icon(Icons.add),
-        ElevatedButton.icon(
-          onPressed: () {
-            print('object');
-          },
-          icon: Icon(Icons.abc),
-          label: Text('Like'),
-        ),
+        // Icon(Icons.add),
+        // ElevatedButton.icon(
+        //   onPressed: () {
+        //     print('object');
+        //   },
+        //   icon: Icon(Icons.abc),
+        //   label: Text('Like'),
+        // ),
         for (var item in data)
-          Text(
-            item['title'].toString(),
-            style: textStyle,
+          Row(
+            children: [
+              TextButton(
+                onPressed: () => print('xxxx'),
+                child: Icon(Icons.add),
+              ),
+              Icon(Icons.add),
+              ElevatedButton.icon(
+                onPressed: () {
+                  print('object');
+                },
+                icon: Icon(Icons.add),
+                label: Text('xxx'),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15, bottom: 15),
+                child: Text(
+                  item['title'].toString(),
+                  style: textStyle,
+                ),
+              ),
+            ],
           ),
       ],
     );
