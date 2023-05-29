@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -30,11 +33,28 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var list = List<int>.filled(5, 0);
-  static const data = [
-    {'text': '111'},
-    {'text': '222'},
-    {'text': '333'},
-  ];
+  // static const data = [
+  //   {'text': '111'},
+  //   {'text': '222'},
+  //   {'text': '333'},
+  // ];
+  var result = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _getApi();
+  }
+
+  void _getApi() async {
+    String url = "https://jsonplaceholder.typicode.com/posts";
+    final response = await http.get(Uri.parse(url));
+    final responseData = json.decode(response.body);
+    print(responseData);
+    setState(() {
+      result = responseData;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +65,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           children: <Widget>[
             // ignore: unused_local_variable
-            for (var i in list)
-              Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: TextItem(data: data)),
+            Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: TextItem(data: result)),
+            // for (var i in list)
+            //   Padding(
+            //       padding: const EdgeInsets.all(15.0),
+            //       child: TextItem(data: data)),
           ],
         ),
       ),
@@ -64,11 +87,11 @@ const textStyle = TextStyle(
 
 class TextItem extends StatelessWidget {
   const TextItem({super.key, required this.data});
-  final List<Map<String, String>> data;
+  final List data;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -82,7 +105,7 @@ class TextItem extends StatelessWidget {
         ),
         for (var item in data)
           Text(
-            item['text'].toString(),
+            item['title'].toString(),
             style: textStyle,
           ),
       ],
