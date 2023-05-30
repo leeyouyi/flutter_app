@@ -61,19 +61,31 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar:
           AppBar(title: const Text('Flutter layout demo'), toolbarHeight: 40),
-      body: Center(
-        child: ListView(
-          children: <Widget>[
-            // ignore: unused_local_variable
-            Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: TextItem(data: result)),
-            // for (var i in list)
-            //   Padding(
-            //       padding: const EdgeInsets.all(15.0),
-            //       child: TextItem(data: data)),
-          ],
-        ),
+      body: ListView(
+        // shrinkWrap: true,
+        // scrollDirection: Axis.horizontal,
+        children: <Widget>[
+          Row(
+            children: [
+              Container(
+                  color: Colors.amber[50],
+                  height: 200,
+                  child: Text(
+                      'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxaaaaaaaaaaaaaaaaaaaaaaaaaa')),
+              // Flexible(child: TextItem(data: result))
+            ],
+          ),
+          Flexible(child: TextItem(data: result)),
+
+          // Flexible(child: TextItem(data: result))
+          // Padding(
+          //     padding: const EdgeInsets.all(10.0),
+          //     child: TextItem(data: result)),
+          // for (var i in list)
+          //   Padding(
+          //       padding: const EdgeInsets.all(15.0),
+          //       child: TextItem(data: data)),
+        ],
       ),
     );
   }
@@ -92,8 +104,8 @@ class TextItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      // mainAxisSize: MainAxisSize.max,
+      // mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         // Icon(Icons.add),
         // ElevatedButton.icon(
@@ -106,24 +118,33 @@ class TextItem extends StatelessWidget {
         for (var item in data)
           Row(
             children: [
-              TextButton(
-                onPressed: () => print('xxxx'),
-                child: Icon(Icons.add),
-              ),
-              Icon(Icons.add),
-              ElevatedButton.icon(
-                onPressed: () {
-                  print('object');
-                },
-                icon: Icon(Icons.add),
-                label: Text('xxx'),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, bottom: 15),
-                child: Text(
-                  item['title'].toString(),
-                  style: textStyle,
-                ),
+              Expanded(
+                child: Container(
+                    color: Colors.black,
+                    height: 100,
+                    child: Row(
+                      children: [
+                        TextButton(
+                          onPressed: () => print('xxxx'),
+                          child: Icon(Icons.add),
+                        ),
+                        Icon(Icons.add),
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            print('object');
+                          },
+                          icon: Icon(Icons.add),
+                          label: Text('xxx'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15, bottom: 15),
+                          child: Text(
+                            item['title'].toString(),
+                            style: textStyle,
+                          ),
+                        ),
+                      ],
+                    )),
               ),
             ],
           ),
